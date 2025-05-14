@@ -66,7 +66,7 @@ export const Input = ({
       {label && (
         <Row mb={8}>
           <Text
-            color={light ? colors.static : colors.grey70}
+            color={light ? colors.white : colors.grey70}
             style={styles.leftAlign}
             bold
           >

@@ -25,7 +25,7 @@ import { getAllCharacters } from '@store/characters/selectors';
 import { showToast } from '@util';
 import { EButtonVariants, EToastTypes } from '@constants/types';
 
-const Home = () => {
+const Favourites = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation =
@@ -107,7 +107,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Favourites;
 
 const styles = StyleSheet.create({
   container: {

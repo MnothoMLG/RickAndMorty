@@ -18,7 +18,7 @@ export const LoadingOverlay: FC<unknown> = () => {
       <Center style={styles.wrapper}>
         <ActivityIndicator color={colors.primary} size='large' />
 
-        <Text color={colors.static}>{t('common.wait')}</Text>
+        <Text color={colors.white}>{t('common.wait')}</Text>
       </Center>
     </Modal>
   );

@@ -58,7 +58,7 @@ export const AppButton: FC<AppButtonProps> = ({
     >
       {loading ? (
         <ActivityIndicator
-          color={variant === 'primary' ? colors.static : colors.primary}
+          color={variant === 'primary' ? colors.white : colors.primary}
           size='small'
         />
       ) : label ? (
@@ -67,7 +67,7 @@ export const AppButton: FC<AppButtonProps> = ({
             <IconLeft
               color={
                 textColor ||
-                (variant === 'primary' ? colors.static : colors.primary)
+                (variant === 'primary' ? colors.white : colors.primary)
               }
               width={19}
               height={19}
@@ -88,7 +88,7 @@ export const AppButton: FC<AppButtonProps> = ({
             <IconRight
               color={
                 textColor ||
-                (variant === 'primary' ? colors.static : colors.primary)
+                (variant === 'primary' ? colors.white : colors.primary)
               }
               width={textSize || 19}
               height={19}
@@ -103,7 +103,7 @@ export const AppButton: FC<AppButtonProps> = ({
   );
 };
 const textStyle = {
-  primary: colors.static,
+  primary: colors.white,
   secondary: colors.primary,
   tertiary: colors.primary,
 };
@@ -124,7 +124,7 @@ const bodyStyle = StyleSheet.create({
     borderColor: colors.primary,
     borderWidth: 1,
 
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
   },
   secondary: {
     borderColor: colors.primary,

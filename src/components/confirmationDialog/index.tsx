@@ -71,27 +71,27 @@ export const ConfirmationDialog: FC<Props> = () => {
           )}
         </View>
       </View>
-      <SafeAreaView style={{ backgroundColor: colors.static }} />
+      <SafeAreaView style={{ backgroundColor: colors.white }} />
     </SwipeablePanel>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
     height: '100%',
     flex: 1,
     justifyContent: 'flex-end',
   },
   swipeModal: {
     padding: 24,
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
     justifyContent: 'flex-end',
     paddingTop: 0,
     height: '100%',
   },
   barContainer: {
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
     height: 10,
     paddingTop: 8,
     marginBottom: 24,

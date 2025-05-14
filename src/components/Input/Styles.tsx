@@ -6,7 +6,7 @@ export default StyleSheet.create({
     height: 56,
     flexWrap: 'nowrap',
     flexDirection: 'row',
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
     width: '100%',
     alignItems: 'center',
     padding: 12,
@@ -35,7 +35,7 @@ export default StyleSheet.create({
   },
   focused: {
     borderColor: colors.borderGreyDark,
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
     fontFamily: 'HelveticaNeue',
     color: colors.grey100,
   },

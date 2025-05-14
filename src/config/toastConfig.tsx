@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   successContainer: {
     borderLeftColor: colors.success,
     borderLeftWidth: 12,
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
     minHeight: 56,
     marginTop: 70,
     justifyContent: 'center',
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
   },
   errorContainer: {
     borderLeftColor: colors.danger,
-    backgroundColor: colors.static,
+    backgroundColor: colors.white,
     alignSelf: 'center',
     justifyContent: 'center',
     minHeight: 56,

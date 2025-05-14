@@ -6,4 +6,5 @@ export { CharacterCard } from './characterCard';
 export { BackButton } from './back';
 export { Loader } from './loader';
 export { LoadingOverlay } from './loadingOverlay';
+export { CustomTabBar } from './tabBar';
 export * from './layout/layout';
