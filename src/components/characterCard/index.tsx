@@ -5,9 +5,10 @@ import { colors } from '@theme';
 import { AppButton } from '../appButton';
 import { EButtonVariants, ICharacter } from '@constants/types';
 import { ArrowRightIcon } from '@assets';
-import { Row } from '../layout/layout';
+import { Margin, Row } from '../layout/layout';
 import { useTranslation } from '@hooks';
 import { AnimatedButton } from '../appButton';
+import { Image } from '../image';
 
 export interface Props {
   character: ICharacter;
@@ -25,30 +26,25 @@ export const CharacterCard: FC<Props> = ({ onPress, character, index }) => {
       onPress={onPress}
       style={styles.container}
     >
-      <Text size={20} bold>
-        {character?.name}
-      </Text>
-
-      <Row justify='space-between' align='flex-end'>
-        <View>
-          {/* <Text>{t('loans.max')}</Text>
-          <Text color={colors.primary} bold size={24}>
-            ${loan?.maximumAmount}
-          </Text>
-          <Text>
-            {t('loans.interest').replace('{0}', `${loan?.interestRate}`)}
-          </Text> */}
-        </View>
-
-        <AppButton
-          br={10}
-          variant={EButtonVariants.SECONDARY}
-          label={t('common.learnMore')}
-          iconRight={ArrowRightIcon}
-          textSize={8}
-          style={styles.learnMore}
-        />
-      </Row>
+      <Image
+        style={styles.image}
+        source={{ uri: character.image }}
+        resizeMode='cover'
+      />
+      <Margin mt={8} mb={8} style={styles.details}>
+        <Text
+          size={16}
+          bold
+          numberOfLines={1}
+          wrap='nowrap'
+          // style={{ width: 200 }}
+          ellipsizeMode='tail'
+        >
+          {character?.name}
+        </Text>
+        <Text>{t('character.species').replace('{0}', character?.species)}</Text>
+        <Text>{t('character.gender').replace('{0}', character?.gender)}</Text>
+      </Margin>
     </AnimatedButton>
   );
 };
@@ -58,10 +54,18 @@ const styles = StyleSheet.create({
     borderColor: colors.borderGrey,
     borderWidth: 1,
     borderRadius: 10,
-    minHeight: 139,
-    padding: 16,
-    paddingBottom: 12,
-    justifyContent: 'space-between',
+    padding: 12,
+    maxHeight: 430,
+    flex: 1,
+    marginHorizontal: 4,
   },
-  learnMore: { height: 21 },
+  details: {
+    height: 70,
+  },
+  image: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
+  },
+  viewMore: { height: 21, maxWidth: 100, marginTop: 8, alignSelf: 'flex-end' },
 });

@@ -33,6 +33,8 @@ const Home = () => {
   const loading = useLoading(GET_LOAN_APPLICATIONS_LOADING_KEY);
   const characterList = useSelector(getAllCharacters);
 
+  console.log('characterList', characterList);
+
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       dispatch(fetchCharactersRequest());
@@ -56,6 +58,8 @@ const Home = () => {
         }
         style={styles.list}
         contentContainerStyle={styles.items}
+        columnWrapperStyle={{ justifyContent: 'space-between' }}
+        numColumns={2}
         renderItem={({ item, index }) => (
           <CharacterCard
             index={index}
@@ -85,7 +89,7 @@ const Home = () => {
             </Center>
           ) : null
         }
-        ItemSeparatorComponent={() => <Margin mt={16} />}
+        ItemSeparatorComponent={() => <Margin mr={8} mt={16} />}
       />
 
       <Footer>
@@ -113,7 +117,8 @@ const styles = StyleSheet.create({
   },
   items: {
     paddingBottom: 106,
+    padding: 8,
   },
   rfrsh: { width: 90 },
-  list: { padding: 24, width: '100%' },
+  list: { padding: 16, width: '100%' },
 });

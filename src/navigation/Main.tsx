@@ -9,10 +9,10 @@ const MainStackNav = createStackNavigator<MainStackParamList>();
 
 export const MainStack = () => {
   return (
-    <MainStackNav.Navigator initialRouteName={routes.DASHBOARD}>
+    <MainStackNav.Navigator initialRouteName={routes.HOME}>
       <MainStackNav.Screen
         {...noHeader}
-        name={routes.APPLICATIONS}
+        name={routes.HOME}
         component={HomeScreen}
       />
     </MainStackNav.Navigator>

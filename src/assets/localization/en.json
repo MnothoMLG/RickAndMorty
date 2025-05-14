@@ -8,5 +8,11 @@
     "noResults": "Looks a bit empty here",
     "wait": "Please wait...",
     "Ok": "Proceed"
+  },
+  "character": {
+    "name": "Name",
+    "status": "Status",
+    "gender": "Gender: {0}",
+    "species": "Species: {0}"
   }
 }

@@ -1,13 +1,13 @@
 import { RouteProp } from '@react-navigation/native';
 import { routes } from './routes';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ICharacter } from '@constants/types';
 
 export type MainStackParamList = {
-  [routes.DASHBOARD]: undefined;
-  [routes.APPLY]: undefined;
-  [routes.APPLICATIONS]: undefined;
-  [routes.CONFIRMATION]: {
-    message: string;
+  [routes.HOME]: undefined;
+  [routes.FAVORITES]: undefined;
+  [routes.CDP]: {
+    character: ICharacter;
   };
 };
 
