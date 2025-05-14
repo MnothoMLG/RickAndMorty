@@ -1,0 +1,12 @@
+{
+  "common": {
+    "submit": "Submit",
+    "email": "Email",
+    "full_name": "Full Name",
+    "learnMore": "Learn More",
+    "refresh": "Refresh",
+    "noResults": "Looks a bit empty here",
+    "wait": "Please wait...",
+    "Ok": "Proceed"
+  }
+}
