@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
   back: {
     marginHorizontal: 24,
     width: 40,
+    backgroundColor: colors.white,
     height: 40,
     transform: [{ rotate: '180deg' }],
   },

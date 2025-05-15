@@ -17,5 +17,5 @@ export const isFavourite = (
   characterId: ICharacter,
   favourites: Array<ICharacter>
 ) => {
-  return favourites.includes(characterId);
+  return favourites.some((char) => char.id === characterId.id);
 };

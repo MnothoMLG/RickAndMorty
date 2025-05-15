@@ -1,7 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { fetchCharactersSuccess, toggleFavouriteCharacter } from './actions';
 import { CharsState } from './types';
-import { ICharacter } from '@constants/types';
+import { EToastTypes, ICharacter } from '@constants/types';
+import { showToast } from '@util';
 
 const INITIAL_STATE: CharsState = {
   characterList: [],
@@ -29,12 +30,17 @@ export const characterReducer = createReducer(INITIAL_STATE, (builder) => {
         const { character } = action.payload;
         let favourites = [...state.favourites];
         if (character) {
-          if (favourites.includes(character)) {
+          console.log({ character });
+          if (favourites.some((char) => char.id == character.id)) {
             favourites = [...favourites].filter(
               (char) => char.id !== character.id
             );
           } else {
             favourites = [...favourites, character];
+            showToast({
+              type: EToastTypes.SUCCESS,
+              message: 'Added to favs :]',
+            });
           }
           return { ...state, favourites };
         }

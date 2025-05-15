@@ -20,7 +20,7 @@ import { GenericMainStackScreenProps } from '@navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchCharactersRequest,
-  GET_LOAN_APPLICATIONS_LOADING_KEY,
+  GET_CHARACTERS_LOADING_KEY,
   toggleFavouriteCharacter,
 } from '@store/actions';
 import {
@@ -34,7 +34,7 @@ const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation<GenericMainStackScreenProps<routes.HOME>>();
-  const loading = useLoading(GET_LOAN_APPLICATIONS_LOADING_KEY);
+  const loading = useLoading(GET_CHARACTERS_LOADING_KEY);
   const characterList = useSelector(getAllCharacters);
 
   useEffect(() => {

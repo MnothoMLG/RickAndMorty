@@ -3,7 +3,7 @@ import { createAction } from '@reduxjs/toolkit';
 
 // ===== GET LIST OF CHARACTERS
 
-export const GET_LOAN_APPLICATIONS_LOADING_KEY = '@DATA/GET_ALL_CHARACTERS';
+export const GET_CHARACTERS_LOADING_KEY = '@DATA/GET_ALL_CHARACTERS';
 export const fetchCharactersRequest = createAction(
   '@DATA/GET_ALL_CHARACTERS_API_REQUEST'
 );

@@ -17,7 +17,8 @@ import { GenericMainStackScreenProps } from '@navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchCharactersRequest,
-  GET_LOAN_APPLICATIONS_LOADING_KEY,
+  GET_CHARACTERS_LOADING_KEY,
+  toggleFavouriteCharacter,
 } from '@store/actions';
 import {
   getAllCharacters,
@@ -25,72 +26,31 @@ import {
 } from '@store/characters/selectors';
 import { showToast } from '@util';
 import { EButtonVariants, EToastTypes } from '@constants/types';
-const favs = useSelector(getAllFavourites);
 
 const Favourites = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation =
     useNavigation<GenericMainStackScreenProps<routes.FAVORITES>>();
-  const loading = useLoading(GET_LOAN_APPLICATIONS_LOADING_KEY);
-  const characterList = useSelector(getAllCharacters);
 
-  console.log('characterList', characterList);
+  const favs = useSelector(getAllFavourites);
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      dispatch(fetchCharactersRequest());
-    });
-    return unsubscribe;
-  }, []);
-
-  if (loading) {
-    return <Loader />;
-  }
   return (
     <SafeAreaView style={styles.container}>
-      <Margin mt={24} />
-      <BackButton />
       <FlatList
-        data={characterList}
-        ListHeaderComponent={
-          <Text size={29} mb={42} xtraBold>
-            BAck
-          </Text>
-        }
+        data={favs}
         style={styles.list}
         contentContainerStyle={styles.items}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-        numColumns={2}
         renderItem={({ item, index }) => (
           <CharacterCard
             index={index}
             character={item}
-            onPress={() => {
-              showToast({
-                type: EToastTypes.SUCCESS,
-                message: 'Added to favs :]',
-              });
+            toggleFavorite={() => {
+              dispatch(toggleFavouriteCharacter({ character: item }));
             }}
+            onPress={() => {}}
           />
         )}
-        ListEmptyComponent={
-          !loading ? (
-            <Center>
-              <Text mt={36} mb={12}>
-                {t('common.noResults')}
-              </Text>
-              <AppButton
-                variant={EButtonVariants.SECONDARY}
-                label={` ${t('common.refresh')} `}
-                br={5}
-                style={styles.rfrsh}
-                onPress={() => dispatch(fetchCharactersRequest())}
-                loading={loading}
-              />
-            </Center>
-          ) : null
-        }
         ItemSeparatorComponent={() => <Margin mr={8} mt={16} />}
       />
     </SafeAreaView>

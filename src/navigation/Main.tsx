@@ -10,6 +10,7 @@ import { routes } from './routes';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CustomTabBar } from '@components/tabBar';
 import { BackButton, Row } from '@components/index';
+import { colors } from '@theme/index';
 
 const MainStackNav = createStackNavigator<MainStackParamList>();
 
@@ -26,15 +27,9 @@ export const MainStack = () => {
       />
       <MainStackNav.Group screenOptions={{ presentation: 'modal' }}>
         <MainStackNav.Screen
+          {...noHeader}
           name={routes.CDP}
           component={CharacterDetailsScreen}
-          options={() => ({
-            header: (props: StackHeaderProps) => (
-              <Row {...props}>
-                <BackButton />
-              </Row>
-            ),
-          })}
         />
       </MainStackNav.Group>
     </MainStackNav.Navigator>

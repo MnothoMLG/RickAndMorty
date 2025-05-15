@@ -14,6 +14,9 @@
     "status": "Status",
     "gender": "Gender: {0}",
     "species": "Species: {0}",
-    "details": "Character Details"
+    "details": "Character Details",
+    "location": "Location",
+    "origin": "Origin",
+    "bio": "{0} has appeared in {1} episodes of the show"
   }
 }
