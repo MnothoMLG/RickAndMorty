@@ -1,19 +1,21 @@
 import Toast from 'react-native-toast-message';
-import { ToastConfig } from '@constants/types';
+import { ICharacter, ToastConfig } from '@constants/types';
 
-export const showToast = ({
-  type,
-  message,
-  description,
-  topOffset,
-}: ToastConfig) => {
+export const showToast = ({ type, message, topOffset }: ToastConfig) => {
   Toast.show({
     type,
     text2: message,
-    // text1: description,
     visibilityTime: 3000,
     position: topOffset ? 'top' : 'bottom',
     bottomOffset: 100,
     topOffset: topOffset ?? 80,
   });
+};
+
+export const isFavourite = (
+  //could use id
+  characterId: ICharacter,
+  favourites: Array<ICharacter>
+) => {
+  return favourites.includes(characterId);
 };

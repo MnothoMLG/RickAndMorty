@@ -11,6 +11,7 @@ import {
   CharacterCard,
   Loader,
   BackButton,
+  CharacterCardPlaceholder,
 } from '@components';
 import { useLoading, useTranslation } from '@hooks';
 import { useNavigation } from '@react-navigation/native';
@@ -20,58 +21,58 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchCharactersRequest,
   GET_LOAN_APPLICATIONS_LOADING_KEY,
+  toggleFavouriteCharacter,
 } from '@store/actions';
-import { getAllCharacters } from '@store/characters/selectors';
+import {
+  getAllCharacters,
+  getAllFavourites,
+} from '@store/characters/selectors';
 import { showToast } from '@util';
 import { EButtonVariants, EToastTypes } from '@constants/types';
 
 const Home = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const navigation =
-    useNavigation<GenericMainStackScreenProps<routes.DASHBOARD>>();
+  const navigation = useNavigation<GenericMainStackScreenProps<routes.HOME>>();
   const loading = useLoading(GET_LOAN_APPLICATIONS_LOADING_KEY);
   const characterList = useSelector(getAllCharacters);
 
-  console.log('characterList', characterList);
-
   useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      dispatch(fetchCharactersRequest());
-    });
-    return unsubscribe;
+    dispatch(fetchCharactersRequest());
   }, []);
 
-  if (loading) {
-    return <Loader />;
-  }
   return (
     <SafeAreaView style={styles.container}>
       <Margin mt={24} />
-      <BackButton />
+
       <FlatList
-        data={characterList}
-        ListHeaderComponent={
-          <Text size={29} mb={42} xtraBold>
-            BAck
-          </Text>
-        }
+        data={loading ? new Array(10) : characterList}
         style={styles.list}
         contentContainerStyle={styles.items}
-        columnWrapperStyle={{ justifyContent: 'space-between' }}
-        numColumns={2}
-        renderItem={({ item, index }) => (
-          <CharacterCard
-            index={index}
-            character={item}
-            onPress={() => {
-              showToast({
-                type: EToastTypes.SUCCESS,
-                message: 'Coming soon :]',
-              });
-            }}
-          />
-        )}
+        renderItem={({ item, index }) =>
+          loading ? (
+            <CharacterCardPlaceholder />
+          ) : (
+            <CharacterCard
+              index={index}
+              character={item}
+              toggleFavorite={() => {
+                showToast({
+                  type: EToastTypes.SUCCESS,
+                  message: 'Coming soon :]',
+                });
+
+                dispatch(toggleFavouriteCharacter({ character: item }));
+              }}
+              onPress={() => {
+                //go to details screen
+                navigation.navigate(routes.CDP, {
+                  character: item,
+                });
+              }}
+            />
+          )
+        }
         ListEmptyComponent={
           !loading ? (
             <Center>
@@ -91,18 +92,6 @@ const Home = () => {
         }
         ItemSeparatorComponent={() => <Margin mr={8} mt={16} />}
       />
-
-      <Footer>
-        <Padding pl={24} pr={24}>
-          <AppButton
-            onPress={() => {
-              // navigation.navigate(routes.APPLY);
-            }}
-            br={10}
-            label={t('dashboard.apply').toLocaleUpperCase()}
-          />
-        </Padding>
-      </Footer>
     </SafeAreaView>
   );
 };

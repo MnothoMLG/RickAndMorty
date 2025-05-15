@@ -13,3 +13,7 @@ export const fetchCharactersSuccess = createAction<{
 export const fetchCharactersError = createAction<{
   error: string;
 }>('@DATA/GET_ALL_CHARACTERS_API_ERROR');
+
+export const toggleFavouriteCharacter = createAction<{
+  character: ICharacter;
+}>('@DATA/TOGGLE_FAVOURITE');

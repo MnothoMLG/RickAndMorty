@@ -10,9 +10,8 @@ export type MainStackParamList = {
     character: ICharacter;
   };
 };
-
 export type GenericMainStackScreenProps<T extends keyof MainStackParamList> =
-  NativeStackScreenProps<MainStackParamList, T>;
+  NativeStackScreenProps<MainStackParamList, T>['navigation'];
 
-export type GenericProfileStackRouteProps<T extends keyof MainStackParamList> =
+export type GenericMainStackRouteProps<T extends keyof MainStackParamList> =
   RouteProp<MainStackParamList, T>;

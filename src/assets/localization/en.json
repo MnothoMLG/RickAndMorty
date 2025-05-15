@@ -13,6 +13,7 @@
     "name": "Name",
     "status": "Status",
     "gender": "Gender: {0}",
-    "species": "Species: {0}"
+    "species": "Species: {0}",
+    "details": "Character Details"
   }
 }

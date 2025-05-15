@@ -2,12 +2,10 @@ import React, { useEffect } from 'react';
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { colors } from '@theme';
 import {
-  Footer,
   Text,
   AppButton,
   Margin,
   Center,
-  Padding,
   CharacterCard,
   Loader,
   BackButton,
@@ -21,15 +19,19 @@ import {
   fetchCharactersRequest,
   GET_LOAN_APPLICATIONS_LOADING_KEY,
 } from '@store/actions';
-import { getAllCharacters } from '@store/characters/selectors';
+import {
+  getAllCharacters,
+  getAllFavourites,
+} from '@store/characters/selectors';
 import { showToast } from '@util';
 import { EButtonVariants, EToastTypes } from '@constants/types';
+const favs = useSelector(getAllFavourites);
 
 const Favourites = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation =
-    useNavigation<GenericMainStackScreenProps<routes.DASHBOARD>>();
+    useNavigation<GenericMainStackScreenProps<routes.FAVORITES>>();
   const loading = useLoading(GET_LOAN_APPLICATIONS_LOADING_KEY);
   const characterList = useSelector(getAllCharacters);
 
@@ -67,7 +69,7 @@ const Favourites = () => {
             onPress={() => {
               showToast({
                 type: EToastTypes.SUCCESS,
-                message: 'Coming soon :]',
+                message: 'Added to favs :]',
               });
             }}
           />
@@ -91,18 +93,6 @@ const Favourites = () => {
         }
         ItemSeparatorComponent={() => <Margin mr={8} mt={16} />}
       />
-
-      <Footer>
-        <Padding pl={24} pr={24}>
-          <AppButton
-            onPress={() => {
-              // navigation.navigate(routes.APPLY);
-            }}
-            br={10}
-            label={t('dashboard.apply').toLocaleUpperCase()}
-          />
-        </Padding>
-      </Footer>
     </SafeAreaView>
   );
 };
