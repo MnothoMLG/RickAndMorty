@@ -1,39 +1,20 @@
-import React, { useEffect } from 'react';
-import {
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import React from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { colors } from '@theme';
 import {
-  Footer,
   Text,
   AppButton,
   Margin,
-  Center,
   Padding,
-  CharacterCard,
   Image,
   BackButton,
   Row,
 } from '@components';
-import { useLoading, useTranslation } from '@hooks';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useTranslation } from '@hooks';
+import { useRoute } from '@react-navigation/native';
 import { routes } from '@navigation/routes';
-import {
-  GenericMainStackRouteProps,
-  GenericMainStackScreenProps,
-} from '@navigation/types';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchCharactersRequest,
-  GET_CHARACTERS_LOADING_KEY,
-} from '@store/actions';
-import { getAllCharacters } from '@store/characters/selectors';
-import { showToast } from '@util';
-import { EButtonVariants, EToastTypes } from '@constants/types';
+import { GenericMainStackRouteProps } from '@navigation/types';
+import { EButtonVariants } from '@constants/types';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as WebBrowser from 'expo-web-browser';
 

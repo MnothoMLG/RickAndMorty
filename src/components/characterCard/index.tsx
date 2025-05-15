@@ -41,10 +41,12 @@ export const CharacterCard: FC<Props> = ({
   return (
     <AnimatedButton
       animation={'fadeInUp'}
-      delay={index * 100}
+      delay={index * 70}
       onPress={onPress}
       style={styles.container}
       activeOpacity={0.8}
+      duration={350}
+      useNativeDriver
     >
       <Row justify='space-between'>
         <Image style={styles.image} source={{ uri: character.image }} />

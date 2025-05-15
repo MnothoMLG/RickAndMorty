@@ -61,8 +61,7 @@ export const CustomTabBar = ({ state, descriptors, navigation }: any) => {
           const { options } = descriptors[route.key];
 
           const isFocused = state.index === index;
-          const routeName: any =
-            route.name === 'CartAction' ? routes.FAVORITES : route.name;
+
           const Icon = icons[route.name];
           const color = isFocused ? colors.primary : colors.grey70;
 
@@ -93,14 +92,14 @@ export const CustomTabBar = ({ state, descriptors, navigation }: any) => {
               <View style={styles.item}>
                 {options?.tabBarBadge ? (
                   <View style={styles.badge}>
-                    <Text bold color={colors.white} size={12}>
+                    <Text bold color={colors.white} size={13}>
                       {options?.tabBarBadge}
                     </Text>
                   </View>
                 ) : null}
-                <Icon width={24} height={24} color={color} />
+                <Icon width={34} height={34} color={color} />
                 <Text bold={isFocused} mt={5} color={color} size={12} lh={13}>
-                  {routeName}
+                  {route.name}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

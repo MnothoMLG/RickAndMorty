@@ -7,6 +7,10 @@ import { showToast } from '@util';
 const INITIAL_STATE: CharsState = {
   characterList: [],
   favourites: [],
+  info: {
+    count: 0,
+    pages: 0,
+  },
 };
 
 const standardCallBack = (

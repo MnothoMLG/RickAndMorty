@@ -17,6 +17,7 @@
     "details": "Character Details",
     "location": "Location",
     "origin": "Origin",
+    "searech": "Search for a character",
     "bio": "{0} has appeared in {1} episodes of the show"
   }
 }

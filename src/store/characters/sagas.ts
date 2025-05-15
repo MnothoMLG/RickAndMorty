@@ -4,18 +4,25 @@ import {
   fetchCharactersError,
   fetchCharactersRequest,
   fetchCharactersSuccess,
+  fetchMoreCharactersRequest,
 } from './actions';
 import { EToastTypes } from '@constants/types';
 import { client } from '@api';
 import { CHARACTERS } from '@api/queries';
 import { showToast } from '@util';
-import { IFetchResult } from './types';
+import { IAction, IFetchPayload, IFetchResult } from './types';
 
-export function* fetchCharacters({}: { type: string }) {
+export function* fetchCharacters({ payload }: IAction<IFetchPayload>) {
+  const { page = 1, search = '' } = payload;
   try {
     console.log('fetchCharacters saga', process.env.BASE_URL);
     const response: AxiosResponse<IFetchResult> = yield call(() =>
-      client.get(CHARACTERS)
+      client.get(CHARACTERS, {
+        params: {
+          page,
+          ...(search ? { name: search } : {}),
+        },
+      })
     );
 
     console.log('response', response);
@@ -24,20 +31,22 @@ export function* fetchCharacters({}: { type: string }) {
     yield put(
       fetchCharactersSuccess({
         characterList: response.data.results,
+        info: response.data.info,
       })
     );
   } catch (err) {
-    console.log('error', err);
+    console.log('fetching characters error', err);
     showToast({
       type: EToastTypes.ERROR,
       message: 'An error occurred fetching data',
     });
     yield put(
-      fetchCharactersError({ err: 'An error occured getting products data' })
+      fetchCharactersError({ error: 'An error occured getting products data' })
     );
   }
 }
 
 export function* watchCharacterSagas() {
   yield takeLatest(fetchCharactersRequest.type, fetchCharacters);
+  yield takeLatest(fetchMoreCharactersRequest.type, fetchCharacters);
 }

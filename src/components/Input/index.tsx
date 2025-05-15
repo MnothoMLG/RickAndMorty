@@ -129,7 +129,9 @@ export const Input = ({
             }}
             style={styles.search}
           >
-            {value ? <CrossIcon width={20} color={colors.grey100} /> : null}
+            {value ? (
+              <CrossIcon width={20} heigh={20} color={colors.grey100} />
+            ) : null}
           </TouchableOpacity>
         )}
       </View>
