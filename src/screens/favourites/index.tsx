@@ -23,6 +23,7 @@ const Favourites = () => {
       <FlatList
         data={favs}
         style={styles.list}
+        testID='Fav-FlatList'
         extraData={favs}
         contentContainerStyle={styles.items}
         renderItem={({ item, index }) => (

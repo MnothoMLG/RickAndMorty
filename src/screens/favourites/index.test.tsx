@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useTransition } from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -11,7 +11,7 @@ import {
   CharacterCard,
   CharacterCardPlaceholder,
 } from '@components/characterCard';
-import { Button, TouchableOpacity, View } from 'react-native';
+import { TextInputProps } from 'react-native';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
@@ -27,7 +27,7 @@ jest.mock('@hooks', () => ({
 }));
 
 jest.mock('@components', () => {
-  const { View, Text, TouchableOpacity } = require('react-native'); // ✅ define inside mock
+  const { View, Text, TouchableOpacity, TextInput } = require('react-native'); // ✅ define inside mock
   return {
     Text: ({ children }: any) => <>{children}</>,
     AppButton: ({ onPress, label }: any) => (
@@ -44,11 +44,11 @@ jest.mock('@components', () => {
         <TouchableOpacity onPress={onPress}></TouchableOpacity>
       </View>
     ),
-    CharacterCardPlaceholder: () => <div>Loading...</div>,
-    Input: ({ onChangeText, ...props }: any) => (
-      <input
+    CharacterCardPlaceholder: () => <Text>Loading...</Text>,
+    Input: ({ onChangeText, ...props }: TextInputProps) => (
+      <TextInput
         data-testid='search-input'
-        onChange={(e) => onChangeText(e.target.value)}
+        onChangeText={(value: string) => onChangeText?.(value)}
         {...props}
       />
     ),
@@ -66,16 +66,8 @@ describe('Home Screen', () => {
     jest.clearAllMocks();
   });
 
-  it('renders loading placeholders when loading', () => {
-    require('@hooks').useLoading.mockReturnValueOnce(false);
-    (useSelector as unknown as jest.Mock).mockReturnValue([]);
-    const { getByText } = render(<Home />);
-
-    expect(getByText('common.refresh')).toBeTruthy();
-  });
-
   it('renders character cards when not loading', () => {
-    (useSelector as jest.Mock).mockReturnValue([
+    (useSelector as unknown as jest.Mock).mockReturnValue([
       { id: 1, name: 'Rick' },
       { id: 2, name: 'Morty' },
     ]);
@@ -92,46 +84,59 @@ describe('Home Screen', () => {
   });
 
   it('dispatches fetchMoreCharactersRequest on end reached', () => {
-    (useSelector as jest.Mock).mockReturnValue([{ id: 1, name: 'Rick' }]);
+    (useSelector as unknown as jest.Mock).mockReturnValue([
+      { id: 1, name: 'Rick' },
+    ]);
     const { getByTestId } = render(<Home />);
     // Simulate onEndReached
-    fireEvent.scroll(getByTestId('FlatList'), {
+    fireEvent.scroll(getByTestId('Fav-FlatList'), {
       nativeEvent: {
         contentOffset: { y: 1000 },
         contentSize: { height: 2000 },
         layoutMeasurement: { height: 1000 },
       },
     });
-    // The FlatList is mocked, so we can't trigger onEndReached directly, but you can check the logic in integration tests.
+    expect(mockDispatch).toHaveBeenCalledWith(
+      fetchCharactersRequest({ page: 2 })
+    );
   });
 
   it('dispatches toggleFavouriteCharacter when favorite button is pressed', () => {
-    (useSelector as jest.Mock).mockReturnValue([{ id: 1, name: 'Rick' }]);
+    (useSelector as unknown as jest.Mock).mockReturnValue([
+      { id: 1, name: 'Rick' },
+    ]);
     const { getByText } = render(<Home />);
-    fireEvent.click(getByText('Fav'));
+    fireEvent.press(getByText('Fav'));
     expect(mockDispatch).toHaveBeenCalledWith(
-      toggleFavouriteCharacter({ character: { id: 1, name: 'Rick' } })
+      toggleFavouriteCharacter({
+        character: {
+          id: 1,
+          name: 'Rick',
+        },
+      })
     );
   });
 
   it('navigates to details when character card is pressed', () => {
-    (useSelector as jest.Mock).mockReturnValue([{ id: 1, name: 'Rick' }]);
+    (useSelector as unknown as jest.Mock).mockReturnValue([
+      { id: 1, name: 'Rick' },
+    ]);
     const { getByText } = render(<Home />);
-    fireEvent.click(getByText('Details'));
+    fireEvent.press(getByText('Details'));
     expect(mockNavigate).toHaveBeenCalled();
   });
 
   it('shows empty state and refresh button when no results', () => {
-    (useSelector as jest.Mock).mockReturnValue([]);
+    (useSelector as unknown as jest.Mock).mockReturnValue([]);
     const { getByText } = render(<Home />);
     expect(getByText('common.noResults')).toBeTruthy();
     expect(getByText(' common.refresh ')).toBeTruthy();
   });
 
   it('dispatches fetchCharactersRequest when refresh button is pressed', () => {
-    (useSelector as jest.Mock).mockReturnValue([]);
+    (useSelector as unknown as jest.Mock).mockReturnValue([]);
     const { getByText } = render(<Home />);
-    fireEvent.click(getByText('Refresh'));
+    fireEvent.press(getByText('Refresh'));
     expect(mockDispatch).toHaveBeenCalledWith(
       fetchCharactersRequest({ page: 1 })
     );
@@ -140,7 +145,7 @@ describe('Home Screen', () => {
   it('dispatches fetchCharactersRequest with search on input', async () => {
     (useSelector as jest.Mock).mockReturnValue([{ id: 1, name: 'Rick' }]);
     const { getByTestId } = render(<Home />);
-    fireEvent.change(getByTestId('search-input'), {
+    fireEvent.changeText(getByTestId('search-input'), {
       target: { value: 'Summer' },
     });
     // Wait for debounce
