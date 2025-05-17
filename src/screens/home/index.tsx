@@ -57,6 +57,8 @@ const Home = () => {
       <Padding pt={26} pl={24} pr={24} pb={24}>
         <Input
           search
+          testID='search-input'
+          value={search}
           placeholder={t('character.search')}
           onChangeText={(text) => {
             debounceTimeOut && debounceTimeOut.cancel();

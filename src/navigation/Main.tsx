@@ -22,7 +22,7 @@ export const MainStack = () => {
     <MainStackNav.Navigator initialRouteName={routes.HOME}>
       <MainStackNav.Screen
         {...noHeader}
-        name={routes.HOME}
+        name={routes.HOME_TAB}
         component={HomeTabNav}
       />
       <MainStackNav.Group screenOptions={{ presentation: 'modal' }}>

@@ -9,3 +9,5 @@ To run project:
 3. yarn start, the Metro Bundler will start
 4. Make sure you're on expo go (s to switch)
 5. You can either scan the QR code and run on a physical device (Will require installing Expo Go) or select a platform from one of the options provided
+
+NB: This is an Expo Go build, but can be turned into a development build that'll allow use and installation of RN 3rd party libraries and use of eas for app distribution either internally or to stores.
