@@ -50,21 +50,21 @@ const CharacterDetails = () => {
 
         <Padding pl={24} pr={24} pt={16}>
           <Row justify='space-between'>
-            <Margin>
+            <Margin style={styles.block}>
               <Text size={14} bold>
                 {t('character.origin')}
               </Text>
               <Text>{character?.origin.name}</Text>
             </Margin>
 
-            <Margin>
+            <Margin style={styles.block}>
               <Text size={14} bold>
                 {t('character.status')}
               </Text>
               <Text>{character?.status}</Text>
             </Margin>
 
-            <Margin>
+            <Margin style={styles.block}>
               <Text size={14} bold>
                 {t('character.location')}
               </Text>
@@ -102,6 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     padding: 24,
   },
+  block: { maxWidth: '30%' },
   bio: {
     backgroundColor: colors.borderGrey,
     padding: 16,

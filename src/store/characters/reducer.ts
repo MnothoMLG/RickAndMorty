@@ -1,5 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { fetchCharactersSuccess, toggleFavouriteCharacter } from './actions';
+import {
+  fetchCharactersSuccess,
+  fetchMoreCharactersSuccess,
+  toggleFavouriteCharacter,
+} from './actions';
 import { CharsState } from './types';
 import { EToastTypes, ICharacter } from '@constants/types';
 import { showToast } from '@util';
@@ -25,6 +29,24 @@ const standardCallBack = (
 export const characterReducer = createReducer(INITIAL_STATE, (builder) => {
   builder
     .addCase(fetchCharactersSuccess, standardCallBack)
+    .addCase(
+      fetchMoreCharactersSuccess,
+      (
+        state: CharsState,
+        action: { type: string; payload: Partial<CharsState> }
+      ) => {
+        const { characterList } = action.payload;
+        if (characterList) {
+          console.log('fetchMoreCharactersSuccess', characterList);
+        }
+        if (characterList?.length) {
+          return {
+            ...state,
+            characterList: [...state.characterList, ...characterList],
+          };
+        }
+      }
+    )
     .addCase(
       toggleFavouriteCharacter,
       (

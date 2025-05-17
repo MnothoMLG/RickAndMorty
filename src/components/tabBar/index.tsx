@@ -4,7 +4,6 @@ import { Text } from '@components';
 import { RickIcon, MortyIcon } from '@assets';
 import { SvgProps } from 'react-native-svg';
 import { useIsFocused } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
 import { routes } from '@navigation/routes';
 import { colors } from '@theme';
 
@@ -12,7 +11,6 @@ const tabHeight = 104;
 
 export const CustomTabBar = ({ state, descriptors, navigation }: any) => {
   const isFocused = useIsFocused();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isFocused) {
@@ -55,58 +53,56 @@ export const CustomTabBar = ({ state, descriptors, navigation }: any) => {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        {state.routes.map((route: any, index: number) => {
-          const { options } = descriptors[route.key];
+    <View style={styles.container}>
+      {state.routes.map((route: any, index: number) => {
+        const { options } = descriptors[route.key];
 
-          const isFocused = state.index === index;
+        const isFocused = state.index === index;
 
-          const Icon = icons[route.name];
-          const color = isFocused ? colors.primary : colors.grey70;
+        const Icon = icons[route.name];
+        const color = isFocused ? colors.primary : colors.grey70;
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
-          };
+        const onLongPress = () => {
+          navigation.emit({
+            type: 'tabLongPress',
+            target: route.key,
+          });
+        };
 
-          return (
-            <TouchableWithoutFeedback
-              key={index}
-              accessibilityRole='button'
-              accessibilityState={isFocused ? { selected: true } : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
-              onPress={() =>
-                onPress({
-                  name: route.name,
-                  key: route.key,
-                  isFocused,
-                  index,
-                })
-              }
-              onLongPress={onLongPress}
-            >
-              <View style={styles.item}>
-                {options?.tabBarBadge ? (
-                  <View style={styles.badge}>
-                    <Text bold color={colors.white} size={13}>
-                      {options?.tabBarBadge}
-                    </Text>
-                  </View>
-                ) : null}
-                <Icon width={34} height={34} color={color} />
-                <Text bold={isFocused} mt={5} color={color} size={12} lh={13}>
-                  {route.name}
-                </Text>
-              </View>
-            </TouchableWithoutFeedback>
-          );
-        })}
-      </View>
-    </>
+        return (
+          <TouchableWithoutFeedback
+            key={route.name}
+            accessibilityRole='button'
+            accessibilityState={isFocused ? { selected: true } : {}}
+            accessibilityLabel={options.tabBarAccessibilityLabel}
+            testID={options.tabBarTestID}
+            onPress={() =>
+              onPress({
+                name: route.name,
+                key: route.key,
+                isFocused,
+                index,
+              })
+            }
+            onLongPress={onLongPress}
+          >
+            <View style={styles.item}>
+              {options?.tabBarBadge ? (
+                <View style={styles.badge}>
+                  <Text bold color={colors.white} size={13}>
+                    {options?.tabBarBadge}
+                  </Text>
+                </View>
+              ) : null}
+              <Icon width={34} height={34} color={color} />
+              <Text bold={isFocused} mt={5} color={color} size={12} lh={13}>
+                {route.name}
+              </Text>
+            </View>
+          </TouchableWithoutFeedback>
+        );
+      })}
+    </View>
   );
 };
 
@@ -130,6 +126,10 @@ const styles = StyleSheet.create({
     },
     paddingHorizontal: 5,
     elevation: 5,
+    borderColor: colors.borderGrey,
+    borderTopWidth: 1,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   padding: {
     backgroundColor: 'white',

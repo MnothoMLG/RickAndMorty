@@ -1,31 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { colors } from '@theme';
-import {
-  Text,
-  AppButton,
-  Margin,
-  Center,
-  CharacterCard,
-  Loader,
-  BackButton,
-} from '@components';
-import { useLoading, useTranslation } from '@hooks';
+import { Margin, CharacterCard } from '@components';
+import { useTranslation } from '@hooks';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '@navigation/routes';
 import { GenericMainStackScreenProps } from '@navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchCharactersRequest,
-  GET_CHARACTERS_LOADING_KEY,
-  toggleFavouriteCharacter,
-} from '@store/actions';
-import {
-  getAllCharacters,
-  getAllFavourites,
-} from '@store/characters/selectors';
-import { showToast } from '@util';
-import { EButtonVariants, EToastTypes } from '@constants/types';
+import { toggleFavouriteCharacter } from '@store/actions';
+import { getAllFavourites } from '@store/characters/selectors';
 
 const Favourites = () => {
   const { t } = useTranslation();
@@ -40,6 +23,7 @@ const Favourites = () => {
       <FlatList
         data={favs}
         style={styles.list}
+        extraData={favs}
         contentContainerStyle={styles.items}
         renderItem={({ item, index }) => (
           <CharacterCard
@@ -48,10 +32,14 @@ const Favourites = () => {
             toggleFavorite={() => {
               dispatch(toggleFavouriteCharacter({ character: item }));
             }}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate(routes.CDP, {
+                character: item,
+              });
+            }}
           />
         )}
-        ItemSeparatorComponent={() => <Margin mr={8} mt={16} />}
+        ItemSeparatorComponent={() => <Margin mt={16} />}
       />
     </SafeAreaView>
   );

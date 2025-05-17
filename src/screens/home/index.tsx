@@ -38,6 +38,8 @@ const Home = () => {
   const [search, setQuery] = useState<string>('');
   let debounceTimeOut: { (): void; (): void; cancel: any };
 
+  console.log({ loading, loadingMore });
+
   useEffect(() => {
     dispatch(fetchCharactersRequest({ page }));
   }, []);
@@ -52,10 +54,10 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Padding pt={24} pl={24} pr={24} pb={24}>
+      <Padding pt={26} pl={24} pr={24} pb={24}>
         <Input
           search
-          placeholder={t('character.searech')}
+          placeholder={t('character.search')}
           onChangeText={(text) => {
             debounceTimeOut && debounceTimeOut.cancel();
             debounceTimeOut = _.debounce(() => {
@@ -109,7 +111,13 @@ const Home = () => {
         ItemSeparatorComponent={() => <Margin mr={8} mt={16} />}
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5} // Load more when scrolled 50% from the bottom
-        ListFooterComponent={loadingMore ? <CharacterCardPlaceholder /> : null}
+        ListFooterComponent={
+          loadingMore ? (
+            <Margin mt={16}>
+              <CharacterCardPlaceholder />
+            </Margin>
+          ) : null
+        }
       />
     </SafeAreaView>
   );

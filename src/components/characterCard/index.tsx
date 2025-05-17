@@ -33,10 +33,7 @@ export const CharacterCard: FC<Props> = ({
 }) => {
   const favs = useSelector(getAllFavourites);
   const { t } = useTranslation();
-
   const isFavorite = isFavourite(character, favs);
-
-  console.log('favourites', favs.length);
 
   return (
     <AnimatedButton
@@ -47,6 +44,7 @@ export const CharacterCard: FC<Props> = ({
       activeOpacity={0.8}
       duration={350}
       useNativeDriver
+      key={character.id}
     >
       <Row justify='space-between'>
         <Image style={styles.image} source={{ uri: character.image }} />

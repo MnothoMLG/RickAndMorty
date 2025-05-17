@@ -1,10 +1,12 @@
 import { AxiosResponse } from 'axios';
-import { takeLatest, put, call, delay } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 import {
   fetchCharactersError,
   fetchCharactersRequest,
   fetchCharactersSuccess,
+  fetchMoreCharactersError,
   fetchMoreCharactersRequest,
+  fetchMoreCharactersSuccess,
 } from './actions';
 import { EToastTypes } from '@constants/types';
 import { client } from '@api';
@@ -12,7 +14,7 @@ import { CHARACTERS } from '@api/queries';
 import { showToast } from '@util';
 import { IAction, IFetchPayload, IFetchResult } from './types';
 
-export function* fetchCharacters({ payload }: IAction<IFetchPayload>) {
+export function* fetchCharacters({ payload, type }: IAction<IFetchPayload>) {
   const { page = 1, search = '' } = payload;
   try {
     console.log('fetchCharacters saga', process.env.BASE_URL);
@@ -25,24 +27,35 @@ export function* fetchCharacters({ payload }: IAction<IFetchPayload>) {
       })
     );
 
-    console.log('response', response);
-
-    yield delay(2000); //so you see loaders :]
-    yield put(
-      fetchCharactersSuccess({
-        characterList: response.data.results,
-        info: response.data.info,
-      })
-    );
-  } catch (err) {
-    console.log('fetching characters error', err);
+    if (type === fetchMoreCharactersRequest.type) {
+      yield put(
+        fetchMoreCharactersSuccess({
+          characterList: response.data.results,
+          info: response.data.info,
+        })
+      );
+    } else {
+      yield put(
+        fetchCharactersSuccess({
+          characterList: response.data.results,
+          info: response.data.info,
+        })
+      );
+    }
+  } catch (error) {
     showToast({
       type: EToastTypes.ERROR,
-      message: 'An error occurred fetching data',
+      message: 'Sorry, we could not find what you are looking for',
     });
-    yield put(
-      fetchCharactersError({ error: 'An error occured getting products data' })
-    );
+
+    yield put(fetchCharactersError({ error: 'An error occured getting data' }));
+    if (type === fetchMoreCharactersRequest.type) {
+      yield put(
+        fetchMoreCharactersError({
+          error: 'An error occurred', //fix typescript
+        })
+      );
+    }
   }
 }
 
