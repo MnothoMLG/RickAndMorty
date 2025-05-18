@@ -17,7 +17,6 @@ import { IAction, IFetchPayload, IFetchResult } from './types';
 export function* fetchCharacters({ payload, type }: IAction<IFetchPayload>) {
   const { page = 1, search = '' } = payload;
   try {
-    console.log('fetchCharacters saga', process.env.BASE_URL);
     const response: AxiosResponse<IFetchResult> = yield call(() =>
       client.get(CHARACTERS, {
         params: {

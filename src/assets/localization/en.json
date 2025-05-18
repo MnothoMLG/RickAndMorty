@@ -18,6 +18,6 @@
     "location": "Location",
     "origin": "Origin",
     "search": "Search for a character",
-    "bio": "{0} has appeared in {1} episodes of the show"
+    "bio": "{0} has appeared in {1} episode{2} of the show"
   }
 }

@@ -4,7 +4,7 @@ export { Input } from './Input';
 export { Image } from './image';
 export { CharacterCard, CharacterCardPlaceholder } from './characterCard';
 export { BackButton } from './back';
-export { Loader } from './loader';
 export { LoadingOverlay } from './loadingOverlay';
 export { CustomTabBar } from './tabBar';
+export { LikeButton } from './likeButton';
 export * from './layout/layout';

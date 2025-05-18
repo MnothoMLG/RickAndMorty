@@ -20,6 +20,7 @@ const store = configureStore({
   devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
+      serializableCheck: false,
       thunk: false, // Disable thunk if you're only using sagas
     }).concat(sagaMiddleware), // Add saga middleware,
 });

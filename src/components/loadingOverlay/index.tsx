@@ -1,16 +1,12 @@
 import { ActivityIndicator, Modal, StyleSheet } from 'react-native';
 import { FC } from 'react';
-import {
-  APPLY_FOR_LOAN_LOADING_KEY,
-  GET_LOAN_PRODUCTS_LOADING_KEY,
-} from '@store/actions';
 import { colors } from '@theme';
 import { Text } from '@components/text';
 import { Center } from '@components/layout/layout';
 import { useTranslation, useLoading } from '@hooks';
 
 export const LoadingOverlay: FC<unknown> = () => {
-  const loading = useLoading(GET_LOAN_PRODUCTS_LOADING_KEY);
+  const loading = useLoading(); //give loading keys for specific loading that should bring up an overlay
   const { t } = useTranslation();
 
   return (
