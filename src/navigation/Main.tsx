@@ -19,7 +19,7 @@ const tabs: string[] = [routes.HOME, routes.FAVORITES];
 
 export const MainStack = () => {
   return (
-    <MainStackNav.Navigator initialRouteName={routes.HOME}>
+    <MainStackNav.Navigator initialRouteName={routes.HOME_TAB}>
       <MainStackNav.Screen
         {...noHeader}
         name={routes.HOME_TAB}
@@ -40,7 +40,11 @@ const HomeTabNav = () => {
   return (
     <Tab.Navigator tabBar={(props: any) => <CustomTabBar {...props} />}>
       <Tab.Screen {...noHeader} name={routes.HOME} component={HomeScreen} />
-      <Tab.Screen name={routes.FAVORITES} component={FavouritesScreen} />
+      <Tab.Screen
+        options={{ title: 'My Favourite Characters' }}
+        name={routes.FAVORITES}
+        component={FavouritesScreen}
+      />
     </Tab.Navigator>
   );
 };

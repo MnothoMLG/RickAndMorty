@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlatList, SafeAreaView, StyleSheet } from 'react-native';
 import { colors } from '@theme';
-import { Margin, CharacterCard } from '@components';
+import { Margin, CharacterCard, Text, Center } from '@components';
 import { useTranslation } from '@hooks';
 import { useNavigation } from '@react-navigation/native';
 import { routes } from '@navigation/routes';
@@ -9,6 +9,7 @@ import { GenericMainStackScreenProps } from '@navigation/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleFavouriteCharacter } from '@store/actions';
 import { getAllFavourites } from '@store/characters/selectors';
+import { EmptyGlassIcon } from '@assets/icons';
 
 const Favourites = () => {
   const { t } = useTranslation();
@@ -41,6 +42,13 @@ const Favourites = () => {
           />
         )}
         ItemSeparatorComponent={() => <Margin mt={16} />}
+        ListEmptyComponent={() => (
+          <Center>
+            <Text mt={40} />
+            <EmptyGlassIcon width={40} height={40} />
+            <Text mt={12}>{t('common.noResults')}</Text>
+          </Center>
+        )}
       />
     </SafeAreaView>
   );

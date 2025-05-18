@@ -1,22 +1,18 @@
 import React, { FC } from 'react';
 import { Text } from '../text';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors } from '@theme';
 import { ICharacter } from '@constants/types';
-import { HeartFilledIcon, HeartIcon } from '@assets';
 import { Margin, Row } from '../layout/layout';
 import { useTranslation } from '@hooks';
 import { AnimatedButton } from '../appButton';
 import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { LikeButton } from '../likeButton';
 import { Image } from '../image';
 import { isFavourite } from '@util';
 import { useSelector } from 'react-redux';
-import {
-  getAllCharacters,
-  getAllFavourites,
-} from '@store/characters/selectors';
+import { getAllFavourites } from '@store/characters/selectors';
 
 export interface Props {
   character: ICharacter;
@@ -44,28 +40,16 @@ export const CharacterCard: FC<Props> = ({
       activeOpacity={0.8}
       duration={350}
       useNativeDriver
-      key={character.id}
+      key={character.id + index}
     >
       <Row justify='space-between'>
         <Image style={styles.image} source={{ uri: character.image }} />
         <Margin style={styles.details}>
-          <TouchableOpacity onPress={toggleFavorite} style={styles.viewMore}>
-            {!isFavorite ? (
-              <HeartIcon
-                color={colors.grey70}
-                width={20}
-                height={20}
-                onPress={toggleFavorite}
-              />
-            ) : (
-              <HeartFilledIcon
-                color={colors.danger}
-                width={20}
-                height={20}
-                onPress={toggleFavorite}
-              />
-            )}
-          </TouchableOpacity>
+          <LikeButton
+            liked={isFavorite}
+            onPress={toggleFavorite}
+            style={styles.viewMore}
+          />
 
           <Text size={16} bold>
             {character?.name}

@@ -22,6 +22,7 @@ const CharacterDetails = () => {
   const { t } = useTranslation();
   const { params } = useRoute<GenericMainStackRouteProps<routes.CDP>>();
   const character = params?.character;
+  const numberOfEpisodes = character?.episode?.length || 0;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -75,7 +76,8 @@ const CharacterDetails = () => {
             <Text align='center'>
               {t('character.bio')
                 .replace('{0}', character?.name)
-                .replace('{1}', String(character?.episode?.length))}
+                .replace('{1}', String(numberOfEpisodes))
+                .replace('{2}', numberOfEpisodes > 1 ? 's' : '')}
             </Text>
           </Margin>
 

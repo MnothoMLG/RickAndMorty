@@ -38,8 +38,6 @@ const Home = () => {
   const [search, setQuery] = useState<string>('');
   let debounceTimeOut: { (): void; (): void; cancel: any };
 
-  console.log({ loading, loadingMore });
-
   useEffect(() => {
     dispatch(fetchCharactersRequest({ page }));
   }, []);

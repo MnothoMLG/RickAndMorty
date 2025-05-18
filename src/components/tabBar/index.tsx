@@ -1,6 +1,6 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
-import { Text } from '@components';
+import { Text } from '../text';
 import { RickIcon, MortyIcon } from '@assets';
 import { SvgProps } from 'react-native-svg';
 import { useIsFocused } from '@react-navigation/native';
@@ -62,13 +62,6 @@ export const CustomTabBar = ({ state, descriptors, navigation }: any) => {
         const Icon = icons[route.name];
         const color = isFocused ? colors.primary : colors.grey70;
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
-
         return (
           <TouchableWithoutFeedback
             key={route.name}
@@ -84,7 +77,6 @@ export const CustomTabBar = ({ state, descriptors, navigation }: any) => {
                 index,
               })
             }
-            onLongPress={onLongPress}
           >
             <View style={styles.item}>
               {options?.tabBarBadge ? (

@@ -36,9 +36,7 @@ export const characterReducer = createReducer(INITIAL_STATE, (builder) => {
         action: { type: string; payload: Partial<CharsState> }
       ) => {
         const { characterList } = action.payload;
-        if (characterList) {
-          console.log('fetchMoreCharactersSuccess', characterList);
-        }
+
         if (characterList?.length) {
           return {
             ...state,
@@ -56,7 +54,6 @@ export const characterReducer = createReducer(INITIAL_STATE, (builder) => {
         const { character } = action.payload;
         let favourites = [...state.favourites];
         if (character) {
-          console.log({ character });
           if (favourites.some((char) => char.id == character.id)) {
             favourites = [...favourites].filter(
               (char) => char.id !== character.id
