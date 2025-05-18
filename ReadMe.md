@@ -1,4 +1,4 @@
-Ambl mobile app assessment by Mnotho
+A little something by Mnotho
 
 A Rick and Morty character listing app, that allows user to search for characters by name, add characters to their favourites list also.
 
