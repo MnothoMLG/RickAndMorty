@@ -33,6 +33,7 @@
     "react-native": "0.74.5",
     "react-native-animatable": "^1.4.0",
     "react-native-dotenv": "^3.4.11",
+    "react-native-error-boundary": "^2.0.0",
     "react-native-gesture-handler": "~2.16.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-pager-view": "6.3.0",

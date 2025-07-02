@@ -7,4 +7,5 @@ export { BackButton } from './back';
 export { LoadingOverlay } from './loadingOverlay';
 export { CustomTabBar } from './tabBar';
 export { LikeButton } from './likeButton';
+export { FallbackComponent } from './fallBack';
 export * from './layout/layout';

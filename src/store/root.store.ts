@@ -10,6 +10,19 @@ const config = {
   storage: AsyncStorage,
   whitelist: ['characterReducer'],
   debug: true,
+  transforms: [
+    {
+      in: (state: any, key: string) => {
+        if (key === 'characterReducer') {
+          // Only persist the 'favourites' field
+          return { favourites: state.favourites };
+        }
+        return state;
+      },
+      out: (state: any, key: string) => state,
+      config: {},
+    },
+  ],
 };
 
 const sagaMiddleware = createSagaMiddleware();
