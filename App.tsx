@@ -17,11 +17,9 @@ export default function App() {
           console.log('An error occurred in the app');
         }}
       >
-        <>
-          <RootNavigation />
-          <Toast config={toastConfig} />
-        </>
+        <RootNavigation />
       </ErrorBoundary>
+      <Toast config={toastConfig} />
     </Provider>
   );
 }

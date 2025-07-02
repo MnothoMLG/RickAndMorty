@@ -1,5 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import {
+  fetchCharactersError,
   fetchCharactersSuccess,
   fetchMoreCharactersSuccess,
   toggleFavouriteCharacter,
@@ -29,6 +30,9 @@ const standardCallBack = (
 export const characterReducer = createReducer(INITIAL_STATE, (builder) => {
   builder
     .addCase(fetchCharactersSuccess, standardCallBack)
+    .addCase(fetchCharactersError, (state: CharsState) => {
+      return { ...state, characterList: [] };
+    })
     .addCase(
       fetchMoreCharactersSuccess,
       (

@@ -71,18 +71,28 @@ export const CharacterCardPlaceholder: FC = () => {
       style={styles.container}
       activeOpacity={0.8}
     >
-      <Row>
+      <Row fullWidth>
         <ShimmerPlaceholder
           LinearGradient={LinearGradient}
           style={[styles.image, styles.imgLoader]}
         />
         <Margin style={styles.details}>
-          <ShimmerPlaceholder LinearGradient={LinearGradient} />
+          <ShimmerPlaceholder
+            style={styles.detailShimmer}
+            LinearGradient={LinearGradient}
+          />
           <Margin mt={8} />
-          <ShimmerPlaceholder LinearGradient={LinearGradient} />
+          <ShimmerPlaceholder
+            style={styles.detailShimmer}
+            LinearGradient={LinearGradient}
+          />
           <Margin mt={8} />
-          <ShimmerPlaceholder LinearGradient={LinearGradient} />
+          <ShimmerPlaceholder
+            style={styles.detailShimmer}
+            LinearGradient={LinearGradient}
+          />
         </Margin>
+        <Margin mr={8} />
       </Row>
     </AnimatedButton>
   );
@@ -97,6 +107,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 130,
   },
+  detailShimmer: { maxWidth: '95%' },
   imgLoader: { height: 102 },
   details: {
     justifyContent: 'center',

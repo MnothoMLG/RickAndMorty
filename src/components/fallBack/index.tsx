@@ -9,7 +9,7 @@ interface FallbackProps {
 }
 export const FallbackComponent: FC<FallbackProps> = (props) => (
   <View>
-    <Text>Something happened!</Text>
+    <Text>Oops, Something bad happened!</Text>
     <Text>{props.error.toString()}</Text>
     <AppButton onPress={props.resetError} label={'Try again'} />
   </View>

@@ -42,8 +42,16 @@ const Home = () => {
     dispatch(fetchCharactersRequest({ page }));
   }, []);
 
+  useEffect(() => {
+    console.log(
+      '+++ ==== Character List Updated === +++',
+      characterList?.length
+    );
+  }, [characterList]);
+
   const handleLoadMore = () => {
-    if (!loading && !loadingMore) {
+    if (!loading && !loadingMore && !search) {
+      // Only fetch more if not already loading and no search query
       const nextPage = page + 1;
       dispatch(fetchMoreCharactersRequest({ page: nextPage }));
       setPage(nextPage);
@@ -52,17 +60,28 @@ const Home = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <AppButton
+        onPress={() => {
+          throw new Error('Test Error');
+        }}
+        label='Throw Error'
+      />
       <Padding pt={26} pl={24} pr={24} pb={24}>
         <Input
           search
           testID='search-input'
           value={search}
           placeholder={t('character.search')}
+          onClear={() => {
+            setQuery('');
+            setPage(1);
+          }}
           onChangeText={(text) => {
             debounceTimeOut && debounceTimeOut.cancel();
             debounceTimeOut = _.debounce(() => {
               setQuery(text);
-              dispatch(fetchCharactersRequest({ search, page }));
+              setPage(1);
+              dispatch(fetchCharactersRequest({ search: text, page }));
             }, 500);
             debounceTimeOut();
           }}
@@ -112,7 +131,7 @@ const Home = () => {
         onEndReached={handleLoadMore}
         onEndReachedThreshold={0.5} // Load more when scrolled 50% from the bottom
         ListFooterComponent={
-          loadingMore ? (
+          loadingMore && !loading ? (
             <Margin mt={16}>
               <CharacterCardPlaceholder />
             </Margin>

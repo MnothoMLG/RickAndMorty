@@ -30,6 +30,7 @@ interface IProps extends TextInputProps {
   placeholderTextColor?: string;
   onFocus?: () => void;
   onBlur?: () => void;
+  onClear?: () => void;
   onChangeText?: (v: string) => void;
 }
 
@@ -44,6 +45,7 @@ export const Input = ({
   required,
   error,
   disabled,
+  onClear,
   ...props
 }: IProps) => {
   const textChanged = (text: string): void => {
@@ -126,6 +128,7 @@ export const Input = ({
             onPress={() => {
               setValue('');
               textChanged('');
+              onClear?.();
             }}
             style={styles.search}
           >

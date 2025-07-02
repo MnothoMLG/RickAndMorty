@@ -17,6 +17,7 @@ import { IAction, IFetchPayload, IFetchResult } from './types';
 export function* fetchCharacters({ payload, type }: IAction<IFetchPayload>) {
   const { page = 1, search = '' } = payload;
   try {
+    console.log('Fetching characters +++', { page, search });
     const response: AxiosResponse<IFetchResult> = yield call(() =>
       client.get(CHARACTERS, {
         params: {
@@ -26,7 +27,10 @@ export function* fetchCharacters({ payload, type }: IAction<IFetchPayload>) {
       })
     );
 
+    // console.log('Characters fetched successfully', response.data);
+
     if (type === fetchMoreCharactersRequest.type) {
+      // console.log('Fetching more characters', response.data.results);
       yield put(
         fetchMoreCharactersSuccess({
           characterList: response.data.results,
